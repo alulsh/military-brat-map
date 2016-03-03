@@ -4,6 +4,6 @@ I'm often asked "where are you from?" As a military brat, I don't have a great o
 
 This map is my "easy" answer.
 
-My list is best explained with maps.
+My life is best explained with maps.
 
 http://www.alexandraulsh.com/military-brat-map/
