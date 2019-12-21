@@ -13,7 +13,9 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2018,
+    sourceType: 'script'
   },
   rules: {
-  },
+    'no-plusplus': [2, { allowForLoopAfterthoughts: true }]
+  }
 };
