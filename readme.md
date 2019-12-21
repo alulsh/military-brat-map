@@ -6,4 +6,4 @@ This map is my "easy" answer.
 
 My life is best explained with maps.
 
-http://www.alexandraulsh.com/military-brat-map/
+https://www.alexandraulsh.com/military-brat-map/
