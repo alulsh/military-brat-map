@@ -1,0 +1,23 @@
+{
+  "name": "military-brat-map",
+  "version": "1.0.0",
+  "description": "My life is best explained with maps.",
+  "scripts": {
+    "test": "eslint map.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alulsh/military-brat-map.git"
+  },
+  "author": "Alexandra L. Ulsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alulsh/military-brat-map/issues"
+  },
+  "homepage": "https://github.com/alulsh/military-brat-map#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1"
+  }
+}
