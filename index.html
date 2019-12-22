@@ -1,43 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>Military Brat Map</title>
-        <meta charset='utf-8' />
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
-        <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-        <link href='styles.css' rel='stylesheet' type='text/css' />
-    </head>
-    <body class='unlimiter'>
+<head>
+<meta charset="utf-8" />
+<title>Military Brat Map</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+<link href="https://www.mapbox.com/base/latest/base.css" rel="stylesheet" />
+<link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="unlimiter">
 
-    <div id='map-init' class='map'></div>
+<div id="map" class="map"></div>
 
-    <div class='pin-left pad1 col3'>
-        <div class='fill-white prose prose-small pad2 info round'>
-       
-        <h3>Where are you from?</h3>
-        <p>Easier to answer with a map.</p>
+<div class='pin-left pad1 col3'>
+  <div class='fill-white prose prose-small pad2 info round'>
+    <h3>Where are you from?</h3>
+    <p>Easier to answer with a map.</p>
+    <ol>
+      <li><a href="#" id='place-0'>Fort Bragg, NC</a></li>
+      <li><a href="#" id='place-1'>Los Angeles, CA</a></li>
+      <li><a href="#" id='place-2'>Fort Greeley, AK</a></li>
+      <li><a href="#" id='place-3'>Fort Leavenworth, KS</a></li>
+      <li><a href="#" id='place-4'>Springfield, VA</a></li>
+      <li><a href="#" id='place-5'>Monterey, CA</a></li>
+      <li><a href="#" id='place-6'>Paris, France</a></li>
+      <li><a href="#" id='place-7'>Hanscom Air Force Base, MA</a></li>
+      <li><a href="#" id='place-8'>Brussels, Belgium</a></li>
+      <li><a href="#" id='place-9'>Williamsburg, VA</a></li>
+      <li><a href="#" id='place-10'>Chengdu, China</a></li>
+      <li><a href="#" id='place-11'>Washington, DC</a></li>
+    </ol>
+  </div>
+</div>
 
-        <ol>
-            <li><a href="#" id='place-0'>Fort Bragg, NC</a></li>
-            <li><a href="#" id='place-1'>Los Angeles, CA</a></li>
-            <li><a href="#" id='place-2'>Fort Greeley, AK</a></li>
-            <li><a href="#" id='place-3'>Fort Leavenworth, KS</a></li>
-            <li><a href="#" id='place-4'>Springfield, VA</a></li>
-            <li><a href="#" id='place-5'>Monterey, CA</a></li>
-            <li><a href="#" id='place-6'>Paris, France</a></li>
-            <li><a href="#" id='place-7'>Hanscom Air Force Base, MA</a></li>
-            <li><a href="#" id='place-8'>Brussels, Belgium</a></li>
-            <li><a href="#" id='place-9'>Williamsburg, VA</a></li>
-            <li><a href="#" id='place-10'>Chengdu, China</a></li>
-            <li><a href="#" id='place-11'>Washington, DC</a></li>
-        </ol>
+<script src="map.js"></script>
 
-      </div>
-    </div>
-
-    <script src='map.js'></script>
-
-    </body>
+</body>
 </html>
