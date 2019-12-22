@@ -176,6 +176,8 @@ function createPopUpHtml(title, description) {
   return popUpHTML;
 }
 
+const popup = new mapboxgl.Popup();
+
 map.on('load', () => {
   map.addLayer(markers);
 
@@ -188,7 +190,7 @@ map.on('load', () => {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxgl.Popup()
+    popup
       .setLngLat(coordinates)
       .setHTML(createPopUpHtml(title, description))
       .addTo(map);
@@ -212,7 +214,7 @@ function fly(lat, long, title) {
 
   markers.source.data.features.forEach((marker) => {
     if (marker.properties.title === title) {
-      new mapboxgl.Popup()
+      popup
         .setLngLat([long, lat])
         .setHTML(createPopUpHtml(marker.properties.title, marker.properties.description))
         .addTo(map);
