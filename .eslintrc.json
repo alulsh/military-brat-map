@@ -10,9 +10,7 @@
     "es6": true
   },
   "globals": {
-    "mapboxgl": "readonly",
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "mapboxgl": "readonly"
   },
   "rules": {
     "prettier/prettier": "error",
