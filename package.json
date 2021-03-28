@@ -16,8 +16,11 @@
   },
   "homepage": "https://github.com/alulsh/military-brat-map#readme",
   "devDependencies": {
-    "eslint": "^7.15.0",
+    "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.21.1"
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }

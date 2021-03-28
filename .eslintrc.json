@@ -1,0 +1,22 @@
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "script"
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "mapboxgl": "readonly",
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "import/no-unresolved": "off",
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }]
+  }
+}
