@@ -1,8 +1,9 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA';
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
 
 const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11',
+  container: "map",
+  style: "mapbox://styles/mapbox/streets-v11",
   center: [-77.043, 38.898],
   zoom: 2,
 });
@@ -10,163 +11,167 @@ const map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 
 const markers = {
-  id: 'places',
-  type: 'symbol',
+  id: "places",
+  type: "symbol",
   source: {
-    type: 'geojson',
+    type: "geojson",
     data: {
-      type: 'FeatureCollection',
+      type: "FeatureCollection",
       features: [
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-79.006, 35.139],
           },
           properties: {
-            title: 'Fort Bragg, NC',
-            icon: 'heliport',
-            description: '1989 - 1990<br>I was born here. Have been back to visit once since.',
+            title: "Fort Bragg, NC",
+            icon: "heliport",
+            description:
+              "1989 - 1990<br>I was born here. Have been back to visit once since.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-118.2427, 34.0537],
           },
           properties: {
-            title: 'Los Angeles, CA',
-            icon: 'heliport',
-            description: '1990 - 1992',
+            title: "Los Angeles, CA",
+            icon: "heliport",
+            description: "1990 - 1992",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-146.249099, 63.908265],
           },
           properties: {
-            title: 'Fort Greely, AK',
-            icon: 'park',
-            description: '1992 - 1995<br>Lots of moose.',
+            title: "Fort Greely, AK",
+            icon: "park",
+            description: "1992 - 1995<br>Lots of moose.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-94.9216, 39.3451],
           },
           properties: {
-            title: 'Fort Leavenworth, KS',
-            icon: 'bicycle',
-            description: '1995 - 1996<br>I learned to ride a bike here.',
+            title: "Fort Leavenworth, KS",
+            icon: "bicycle",
+            description: "1995 - 1996<br>I learned to ride a bike here.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-77.187, 38.7891],
           },
           properties: {
-            title: 'Springfield, VA',
-            icon: 'school',
-            description: '1996 - October 1998',
+            title: "Springfield, VA",
+            icon: "school",
+            description: "1996 - October 1998",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-121.8946, 36.6003],
           },
           properties: {
-            title: 'Monterey, CA',
-            icon: 'school',
-            description: 'October 1998 - July 1999<br>Defense Language Institute',
+            title: "Monterey, CA",
+            icon: "school",
+            description:
+              "October 1998 - July 1999<br>Defense Language Institute",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [2.320582, 48.859489],
           },
           properties: {
-            title: 'Paris, France',
-            icon: 'school',
-            description: 'July 1999 - August 2004<br>Je me souviens.',
+            title: "Paris, France",
+            icon: "school",
+            description: "July 1999 - August 2004<br>Je me souviens.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-71.277862, 42.46153],
           },
           properties: {
-            title: 'Hanscom Air Force Base, MA',
-            icon: 'school',
-            description: 'August 2004 - May 2008<br>High school.',
+            title: "Hanscom Air Force Base, MA",
+            icon: "school",
+            description: "August 2004 - May 2008<br>High school.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [4.3488, 50.8504],
           },
           properties: {
-            title: 'Brussels, Belgium',
-            icon: 'town-hall',
-            description: 'May 2008 - July 2011<br>Winter and summer breaks from college.',
+            title: "Brussels, Belgium",
+            icon: "town-hall",
+            description:
+              "May 2008 - July 2011<br>Winter and summer breaks from college.",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-76.7075, 37.2707],
           },
           properties: {
-            title: 'Williamsburg, Virginia',
-            icon: 'college',
-            description: 'August 2008 - May 2012<br>The College of William & Mary',
+            title: "Williamsburg, Virginia",
+            icon: "college",
+            description:
+              "August 2008 - May 2012<br>The College of William & Mary",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [104.0667, 30.6636],
           },
           properties: {
-            title: 'Chengdu, China',
-            icon: 'college',
-            description: 'July-August 2011<br>Study Abroad',
+            title: "Chengdu, China",
+            icon: "college",
+            description: "July-August 2011<br>Study Abroad",
           },
         },
         {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [-77.0366, 38.895],
           },
           properties: {
-            title: 'Washington, D.C.',
-            icon: 'rocket',
-            description: 'May 2012 - Present',
+            title: "Washington, D.C.",
+            icon: "rocket",
+            description: "May 2012 - Present",
           },
         },
       ],
     },
   },
   layout: {
-    'icon-image': '{icon}-15',
-    'icon-allow-overlap': true,
+    "icon-image": "{icon}-15",
+    "icon-allow-overlap": true,
   },
 };
 
@@ -178,10 +183,10 @@ function createPopUpHtml(title, description) {
 
 const popup = new mapboxgl.Popup();
 
-map.on('load', () => {
+map.on("load", () => {
   map.addLayer(markers);
 
-  map.on('click', 'places', (e) => {
+  map.on("click", "places", (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const { description } = e.features[0].properties;
     const { title } = e.features[0].properties;
@@ -196,12 +201,12 @@ map.on('load', () => {
       .addTo(map);
   });
 
-  map.on('mouseenter', 'places', () => {
-    map.getCanvas().style.cursor = 'pointer';
+  map.on("mouseenter", "places", () => {
+    map.getCanvas().style.cursor = "pointer";
   });
 
-  map.on('mouseleave', 'places', () => {
-    map.getCanvas().style.cursor = '';
+  map.on("mouseleave", "places", () => {
+    map.getCanvas().style.cursor = "";
   });
 });
 
@@ -216,7 +221,12 @@ function fly(lat, long, title) {
     if (marker.properties.title === title) {
       popup
         .setLngLat([long, lat])
-        .setHTML(createPopUpHtml(marker.properties.title, marker.properties.description))
+        .setHTML(
+          createPopUpHtml(
+            marker.properties.title,
+            marker.properties.description
+          )
+        )
         .addTo(map);
     }
   });
@@ -225,9 +235,13 @@ function fly(lat, long, title) {
 function createEventListeners(index, lat, long, title) {
   const placeClass = `place-${index}`;
 
-  document.getElementById(placeClass).addEventListener('click', () => {
-    fly(lat, long, title);
-  }, false);
+  document.getElementById(placeClass).addEventListener(
+    "click",
+    () => {
+      fly(lat, long, title);
+    },
+    false
+  );
 }
 
 function loadPlaces(data) {
