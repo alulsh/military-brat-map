@@ -1,7 +1,4 @@
 {
-  "name": "military-brat-map",
-  "version": "1.0.0",
-  "description": "My life is best explained with maps.",
   "scripts": {
     "test": "eslint map.js"
   },
