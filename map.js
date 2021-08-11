@@ -13,40 +13,14 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
-function createPopUpHtml(title, description) {
-  const popUpHTML = `<div class="markerTitle">${title}</div>${description}`;
-
-  return popUpHTML;
-}
-
 const popup = new mapboxgl.Popup();
 
-map.on("load", () => {
-  map.addLayer(places);
-
-  map.on("click", "places", (e) => {
-    const coordinates = e.features[0].geometry.coordinates.slice();
-    const { description } = e.features[0].properties;
-    const { title } = e.features[0].properties;
-
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
-
-    popup
-      .setLngLat(coordinates)
-      .setHTML(createPopUpHtml(title, description))
-      .addTo(map);
-  });
-
-  map.on("mouseenter", "places", () => {
-    map.getCanvas().style.cursor = "pointer";
-  });
-
-  map.on("mouseleave", "places", () => {
-    map.getCanvas().style.cursor = "";
-  });
-});
+function createPopup(coordinates, title, description) {
+  popup
+    .setLngLat(coordinates)
+    .setHTML(`<div class="markerTitle">${title}</div>${description}`)
+    .addTo(map);
+}
 
 function fly(lat, long, title) {
   map.flyTo({
@@ -57,15 +31,11 @@ function fly(lat, long, title) {
 
   places.source.data.features.forEach((marker) => {
     if (marker.properties.title === title) {
-      popup
-        .setLngLat([long, lat])
-        .setHTML(
-          createPopUpHtml(
-            marker.properties.title,
-            marker.properties.description
-          )
-        )
-        .addTo(map);
+      createPopup(
+        [long, lat],
+        marker.properties.title,
+        marker.properties.description
+      );
     }
   });
 }
@@ -97,3 +67,27 @@ function loadPlaces(layer) {
 }
 
 loadPlaces(places);
+
+map.on("load", () => {
+  map.addLayer(places);
+});
+
+map.on("mouseenter", "places", () => {
+  map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "places", () => {
+  map.getCanvas().style.cursor = "";
+});
+
+map.on("click", "places", (e) => {
+  const coordinates = e.features[0].geometry.coordinates.slice();
+  const { description } = e.features[0].properties;
+  const { title } = e.features[0].properties;
+
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  createPopup(coordinates, title, description);
+});
