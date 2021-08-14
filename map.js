@@ -22,6 +22,14 @@ function createPopup(coordinates, title, description) {
     .addTo(map);
 }
 
+function searchPlacesByTitle(placesGeoJSON, title) {
+  const { features } = placesGeoJSON.source.data;
+  const featureByTitle = features.filter(
+    (feature) => feature.properties.title === title
+  );
+  return featureByTitle[0];
+}
+
 function fly(lat, long, title) {
   map.flyTo({
     center: [long, lat],
@@ -29,15 +37,12 @@ function fly(lat, long, title) {
     essential: true,
   });
 
-  places.source.data.features.forEach((marker) => {
-    if (marker.properties.title === title) {
-      createPopup(
-        [long, lat],
-        marker.properties.title,
-        marker.properties.description
-      );
-    }
-  });
+  const feature = searchPlacesByTitle(places, title);
+  createPopup(
+    feature.geometry.coordinates,
+    feature.properties.title,
+    feature.properties.description
+  );
 }
 
 function createEventListeners(index, lat, long, title) {
