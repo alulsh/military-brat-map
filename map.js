@@ -30,6 +30,12 @@ function searchPlacesByTitle(placesGeoJSON, title) {
   return featureByTitle[0];
 }
 
+function searchLinksByTitle(title) {
+  const links = Array.from(document.getElementsByClassName("place"));
+  const linkByTitle = links.filter((link) => link.innerText === title);
+  return linkByTitle[0];
+}
+
 function fly(lat, long, title) {
   map.flyTo({
     center: [long, lat],
@@ -45,10 +51,8 @@ function fly(lat, long, title) {
   );
 }
 
-function createEventListeners(index, lat, long, title) {
-  const placeClass = `place-${index}`;
-
-  document.getElementById(placeClass).addEventListener(
+function createEventListener(element, lat, long, title) {
+  element.addEventListener(
     "click",
     () => {
       fly(lat, long, title);
@@ -60,15 +64,15 @@ function createEventListeners(index, lat, long, title) {
 function loadPlaces(layer) {
   const { features } = layer.source.data;
 
-  for (let i = 0; i < features.length; i++) {
-    const feature = features[i];
-
-    const lat = feature.geometry.coordinates[1];
-    const long = feature.geometry.coordinates[0];
-    const { title } = feature.properties;
-
-    createEventListeners(i, lat, long, title);
-  }
+  features.forEach((feature) => {
+    const link = searchLinksByTitle(feature.properties.title);
+    createEventListener(
+      link,
+      feature.geometry.coordinates[1],
+      feature.geometry.coordinates[0],
+      feature.properties.title
+    );
+  });
 }
 
 loadPlaces(places);

@@ -124,7 +124,7 @@ const places = {
             coordinates: [-76.7075, 37.2707],
           },
           properties: {
-            title: "Williamsburg, Virginia",
+            title: "Williamsburg, VA",
             icon: "college",
             description:
               "August 2008 - May 2012<br>The College of William & Mary",
@@ -149,7 +149,7 @@ const places = {
             coordinates: [-77.0366, 38.895],
           },
           properties: {
-            title: "Washington, D.C.",
+            title: "Washington, DC",
             icon: "rocket",
             description: "May 2012 - Present",
           },
