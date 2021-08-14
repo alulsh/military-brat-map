@@ -36,9 +36,9 @@ function searchLinksByTitle(title) {
   return linkByTitle[0];
 }
 
-function fly(lat, long, title) {
+function fly(coordinates, title) {
   map.flyTo({
-    center: [long, lat],
+    center: coordinates,
     zoom: 9,
     essential: true,
   });
@@ -51,11 +51,11 @@ function fly(lat, long, title) {
   );
 }
 
-function createEventListener(element, lat, long, title) {
+function createEventListener(element, coordinates, title) {
   element.addEventListener(
     "click",
     () => {
-      fly(lat, long, title);
+      fly(coordinates, title);
     },
     false
   );
@@ -68,8 +68,7 @@ function loadPlaces(layer) {
     const link = searchLinksByTitle(feature.properties.title);
     createEventListener(
       link,
-      feature.geometry.coordinates[1],
-      feature.geometry.coordinates[0],
+      feature.geometry.coordinates,
       feature.properties.title
     );
   });
