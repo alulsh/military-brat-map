@@ -22,7 +22,7 @@ function createPopup(coordinates, title, description) {
     .addTo(map);
 }
 
-function searchPlacesByTitle(placesGeoJSON, title) {
+function getFeatureByTitle(placesGeoJSON, title) {
   const { features } = placesGeoJSON.source.data;
   const featureByTitle = features.filter(
     (feature) => feature.properties.title === title
@@ -30,7 +30,7 @@ function searchPlacesByTitle(placesGeoJSON, title) {
   return featureByTitle[0];
 }
 
-function searchLinksByTitle(title) {
+function getLinkElementByTitle(title) {
   const links = Array.from(document.getElementsByClassName("place"));
   const linkByTitle = links.filter((link) => link.innerText === title);
   return linkByTitle[0];
@@ -43,7 +43,7 @@ function fly(coordinates, title) {
     essential: true,
   });
 
-  const feature = searchPlacesByTitle(places, title);
+  const feature = getFeatureByTitle(places, title);
   createPopup(
     feature.geometry.coordinates,
     feature.properties.title,
@@ -61,11 +61,11 @@ function createEventListener(element, coordinates, title) {
   );
 }
 
-function loadPlaces(layer) {
+function createPlacesEventListeners(layer) {
   const { features } = layer.source.data;
 
   features.forEach((feature) => {
-    const link = searchLinksByTitle(feature.properties.title);
+    const link = getLinkElementByTitle(feature.properties.title);
     createEventListener(
       link,
       feature.geometry.coordinates,
@@ -74,7 +74,7 @@ function loadPlaces(layer) {
   });
 }
 
-loadPlaces(places);
+createPlacesEventListeners(places);
 
 map.on("load", () => {
   map.addLayer(places);
