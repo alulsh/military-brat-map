@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const places = {
     id: "places",
     type: "symbol",
@@ -160,4 +158,4 @@ const places = {
         "icon-allow-overlap": true,
     },
 };
-exports.default = places;
+export default places;

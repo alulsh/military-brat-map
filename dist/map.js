@@ -1,10 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line import/extensions
-const places_js_1 = __importDefault(require("./places.js"));
+import places from "./places.js";
+// import * as mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
 const map = new mapboxgl.Map({
@@ -37,7 +33,7 @@ function fly(coordinates, title) {
         zoom: 9,
         essential: true,
     });
-    const feature = getFeatureByTitle(places_js_1.default, title);
+    const feature = getFeatureByTitle(places, title);
     createPopup(feature.geometry.coordinates, feature.properties.title, feature.properties.description);
 }
 function createEventListener(element, coordinates, title) {
@@ -52,9 +48,9 @@ function createPlacesEventListeners(layer) {
         createEventListener(link, feature.geometry.coordinates, feature.properties.title);
     });
 }
-createPlacesEventListeners(places_js_1.default);
+createPlacesEventListeners(places);
 map.on("load", () => {
-    map.addLayer(places_js_1.default);
+    map.addLayer(places);
 });
 map.on("mouseenter", "places", () => {
     map.getCanvas().style.cursor = "pointer";
