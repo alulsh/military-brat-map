@@ -32,7 +32,7 @@ function getFeatureByTitle(placesGeoJSON, title) {
 
 function getLinkElementByTitle(title) {
   const links = Array.from(document.getElementsByClassName("place"));
-  const linkByTitle = links.filter((link) => link.innerText === title);
+  const linkByTitle = links.filter((link) => (<HTMLElement>link).innerText === title);
   return linkByTitle[0];
 }
 
@@ -89,13 +89,16 @@ map.on("mouseleave", "places", () => {
 });
 
 map.on("click", "places", (e) => {
-  const coordinates = e.features[0].geometry.coordinates.slice();
-  const { description } = e.features[0].properties;
-  const { title } = e.features[0].properties;
+  const geometry = e.features[0].geometry;
+  if (geometry.type === "Point") {
+    const coordinates = geometry.coordinates.slice();
+    const { description } = e.features[0].properties;
+    const { title } = e.features[0].properties;
 
-  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    createPopup(coordinates, title, description);
   }
-
-  createPopup(coordinates, title, description);
 });
