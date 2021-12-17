@@ -4,12 +4,12 @@
     "start": "serve"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint": "^8.4.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-import": "^2.25.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.2",
-    "serve": "^12.0.0"
+    "prettier": "^2.5.0",
+    "serve": "^13.0.0"
   }
 }
