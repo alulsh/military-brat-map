@@ -1,4 +1,4 @@
-import places from "./places";
+import places from "./places.js";
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
 const map = new mapboxgl.Map({
