@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/extensions
+import { FeatureCollection } from "geojson";
 import places from "./places.js";
 
 mapboxgl.accessToken =
@@ -15,28 +16,28 @@ map.addControl(new mapboxgl.NavigationControl());
 
 const popup = new mapboxgl.Popup();
 
-function createPopup(coordinates, title, description) {
+function createPopup(coordinates: mapboxgl.LngLatLike, title: string, description: string) {
   popup
     .setLngLat(coordinates)
     .setHTML(`<div class="markerTitle">${title}</div>${description}`)
     .addTo(map);
 }
 
-function getFeatureByTitle(placesGeoJSON, title) {
-  const { features } = placesGeoJSON.source.data;
+function getFeatureByTitle(placesGeoJSON: FeatureCollection, title: string) {
+  const { features } = placesGeoJSON;
   const featureByTitle = features.filter(
     (feature) => feature.properties.title === title
   );
   return featureByTitle[0];
 }
 
-function getLinkElementByTitle(title) {
+function getLinkElementByTitle(title: string) {
   const links = Array.from(document.getElementsByClassName("place"));
   const linkByTitle = links.filter((link) => (<HTMLElement>link).innerText === title);
   return linkByTitle[0];
 }
 
-function fly(coordinates, title) {
+function fly(coordinates: mapboxgl.LngLatLike, title: string) {
   map.flyTo({
     center: coordinates,
     zoom: 9,
@@ -51,7 +52,7 @@ function fly(coordinates, title) {
   );
 }
 
-function createEventListener(element, coordinates, title) {
+function createEventListener(element: HTMLElement, coordinates: mapboxgl.LngLatLike, title: string) {
   element.addEventListener(
     "click",
     () => {
@@ -61,8 +62,8 @@ function createEventListener(element, coordinates, title) {
   );
 }
 
-function createPlacesEventListeners(layer) {
-  const { features } = layer.source.data;
+function createPlacesEventListeners(places: FeatureCollection) {
+  const { features } = places;
 
   features.forEach((feature) => {
     const link = getLinkElementByTitle(feature.properties.title);
@@ -77,7 +78,19 @@ function createPlacesEventListeners(layer) {
 createPlacesEventListeners(places);
 
 map.on("load", () => {
-  map.addLayer(places);
+  const layer: mapboxgl.AnyLayer = {
+    id: "places",
+    type: "symbol",
+    source: {
+      type: "geojson",
+      data: places,
+    },
+    layout: {
+      "icon-image": "{icon}-15",
+      "icon-allow-overlap": true,
+    },
+  }
+  map.addLayer(layer);
 });
 
 map.on("mouseenter", "places", () => {

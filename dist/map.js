@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
 import places from "./places.js";
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
@@ -17,7 +16,7 @@ function createPopup(coordinates, title, description) {
         .addTo(map);
 }
 function getFeatureByTitle(placesGeoJSON, title) {
-    const { features } = placesGeoJSON.source.data;
+    const { features } = placesGeoJSON;
     const featureByTitle = features.filter((feature) => feature.properties.title === title);
     return featureByTitle[0];
 }
@@ -40,8 +39,8 @@ function createEventListener(element, coordinates, title) {
         fly(coordinates, title);
     }, false);
 }
-function createPlacesEventListeners(layer) {
-    const { features } = layer.source.data;
+function createPlacesEventListeners(places) {
+    const { features } = places;
     features.forEach((feature) => {
         const link = getLinkElementByTitle(feature.properties.title);
         createEventListener(link, feature.geometry.coordinates, feature.properties.title);
@@ -49,7 +48,19 @@ function createPlacesEventListeners(layer) {
 }
 createPlacesEventListeners(places);
 map.on("load", () => {
-    map.addLayer(places);
+    const layer = {
+        id: "places",
+        type: "symbol",
+        source: {
+            type: "geojson",
+            data: places,
+        },
+        layout: {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true,
+        },
+    };
+    map.addLayer(layer);
 });
 map.on("mouseenter", "places", () => {
     map.getCanvas().style.cursor = "pointer";
