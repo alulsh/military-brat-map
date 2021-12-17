@@ -17,7 +17,7 @@ function createPopup(coordinates, title, description) {
 }
 function getFeatureByTitle(placesGeoJSON, title) {
     const { features } = placesGeoJSON;
-    const featureByTitle = features.filter((feature) => feature.properties.title === title);
+    const featureByTitle = features.filter((feature) => { var _a; return ((_a = feature.properties) === null || _a === void 0 ? void 0 : _a.title) === title; });
     return featureByTitle[0];
 }
 function getLinkElementByTitle(title) {
@@ -26,6 +26,7 @@ function getLinkElementByTitle(title) {
     return linkByTitle[0];
 }
 function fly(coordinates, title) {
+    var _a, _b;
     map.flyTo({
         center: coordinates,
         zoom: 9,
@@ -33,7 +34,7 @@ function fly(coordinates, title) {
     });
     const feature = getFeatureByTitle(places, title);
     if (feature.geometry.type === "Point") {
-        createPopup(feature.geometry.coordinates, feature.properties.title, feature.properties.description);
+        createPopup(feature.geometry.coordinates, (_a = feature.properties) === null || _a === void 0 ? void 0 : _a.title, (_b = feature.properties) === null || _b === void 0 ? void 0 : _b.description);
     }
 }
 function createEventListener(element, coordinates, title) {
@@ -44,9 +45,10 @@ function createEventListener(element, coordinates, title) {
 function createPlacesEventListeners(places) {
     const { features } = places;
     features.forEach((feature) => {
+        var _a, _b;
         if (feature.geometry.type === "Point") {
-            const link = getLinkElementByTitle(feature.properties.title);
-            createEventListener(link, feature.geometry.coordinates, feature.properties.title);
+            const link = getLinkElementByTitle((_a = feature.properties) === null || _a === void 0 ? void 0 : _a.title);
+            createEventListener(link, feature.geometry.coordinates, (_b = feature.properties) === null || _b === void 0 ? void 0 : _b.title);
         }
     });
 }
@@ -73,11 +75,12 @@ map.on("mouseleave", "places", () => {
     map.getCanvas().style.cursor = "";
 });
 map.on("click", "places", (event) => {
-    const geometry = event.features[0].geometry;
+    const features = event.features;
+    const geometry = features[0].geometry;
     if (geometry.type === "Point") {
         const coordinates = geometry.coordinates.slice();
-        const { description } = event.features[0].properties;
-        const { title } = event.features[0].properties;
+        const { description } = features[0].properties;
+        const { title } = features[0].properties;
         while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
         }

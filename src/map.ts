@@ -26,7 +26,7 @@ function createPopup(coordinates: mapboxgl.LngLatLike, title: string, descriptio
 function getFeatureByTitle(placesGeoJSON: FeatureCollection, title: string) {
   const { features } = placesGeoJSON;
   const featureByTitle = features.filter(
-    (feature) => feature.properties.title === title
+    (feature) => feature.properties?.title === title
   );
   return featureByTitle[0];
 }
@@ -48,8 +48,8 @@ function fly(coordinates: mapboxgl.LngLatLike, title: string) {
   if (feature.geometry.type === "Point") {
     createPopup(
       <mapboxgl.LngLatLike>feature.geometry.coordinates,
-      feature.properties.title,
-      feature.properties.description
+      feature.properties?.title,
+      feature.properties?.description
     );
   }
 }
@@ -69,11 +69,11 @@ function createPlacesEventListeners(places: FeatureCollection) {
 
   features.forEach((feature) => {
     if (feature.geometry.type === "Point") {
-      const link = getLinkElementByTitle(feature.properties.title);
+      const link = getLinkElementByTitle(feature.properties?.title);
       createEventListener(
         <HTMLElement>link,
         <mapboxgl.LngLatLike>feature.geometry.coordinates,
-        feature.properties.title
+        feature.properties?.title
       );
     }
   });
@@ -106,11 +106,15 @@ map.on("mouseleave", "places", () => {
 });
 
 map.on("click", "places", (event) => {
-  const geometry = event.features[0].geometry;
+  const features = event.features!;
+  const geometry = features[0].geometry;
   if (geometry.type === "Point") {
+
+    type customProperties = GeoJSON.GeoJsonProperties & { description: string, title: string }
+
     const coordinates = geometry.coordinates.slice();
-    const { description } = event.features[0].properties;
-    const { title } = event.features[0].properties;
+    const { description } = <customProperties>features[0].properties;
+    const { title } = <customProperties>features[0].properties;
 
     while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
