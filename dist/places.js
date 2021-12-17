@@ -1,11 +1,3 @@
-// interface placesGeoJSON {
-//   id: string,
-//   type: string,
-//   source: {
-//     data: GeoJSON.FeatureCollection
-//   },
-//   layout: object
-// }
 const places = {
     type: "FeatureCollection",
     features: [

@@ -45,11 +45,13 @@ function fly(coordinates: mapboxgl.LngLatLike, title: string) {
   });
 
   const feature = getFeatureByTitle(places, title);
-  createPopup(
-    feature.geometry.coordinates,
-    feature.properties.title,
-    feature.properties.description
-  );
+  if (feature.geometry.type === "Point") {
+    createPopup(
+      <mapboxgl.LngLatLike>feature.geometry.coordinates,
+      feature.properties.title,
+      feature.properties.description
+    );
+  }
 }
 
 function createEventListener(element: HTMLElement, coordinates: mapboxgl.LngLatLike, title: string) {
@@ -66,12 +68,14 @@ function createPlacesEventListeners(places: FeatureCollection) {
   const { features } = places;
 
   features.forEach((feature) => {
-    const link = getLinkElementByTitle(feature.properties.title);
-    createEventListener(
-      link,
-      feature.geometry.coordinates,
-      feature.properties.title
-    );
+    if (feature.geometry.type === "Point") {
+      const link = getLinkElementByTitle(feature.properties.title);
+      createEventListener(
+        <HTMLElement>link,
+        <mapboxgl.LngLatLike>feature.geometry.coordinates,
+        feature.properties.title
+      );
+    }
   });
 }
 
@@ -101,17 +105,17 @@ map.on("mouseleave", "places", () => {
   map.getCanvas().style.cursor = "";
 });
 
-map.on("click", "places", (e) => {
-  const geometry = e.features[0].geometry;
+map.on("click", "places", (event) => {
+  const geometry = event.features[0].geometry;
   if (geometry.type === "Point") {
     const coordinates = geometry.coordinates.slice();
-    const { description } = e.features[0].properties;
-    const { title } = e.features[0].properties;
+    const { description } = event.features[0].properties;
+    const { title } = event.features[0].properties;
 
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    createPopup(coordinates, title, description);
+    createPopup(<mapboxgl.LngLatLike>coordinates, title, description);
   }
 });
