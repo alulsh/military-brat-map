@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "test": "eslint src/map.ts src/places.ts",
-    "start": "serve"
+    "test": "tsc --noemit & eslint src/map.ts src/places.ts",
+    "dev": "tsc --watch",
+    "start": "tsc --watch & serve"
   },
   "devDependencies": {
     "@types/mapbox-gl": "^2.6.0",
