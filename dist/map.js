@@ -58,7 +58,6 @@ map.on("mouseleave", "places", () => {
     map.getCanvas().style.cursor = "";
 });
 map.on("click", "places", (e) => {
-    // const geometry = staticBreadcrumbs.features[0].geometry;
     const geometry = e.features[0].geometry;
     if (geometry.type === "Point") {
         const coordinates = geometry.coordinates.slice();
@@ -69,11 +68,4 @@ map.on("click", "places", (e) => {
         }
         createPopup(coordinates, title, description);
     }
-    // const coordinates = geometry.coordinates.slice();
-    // const { description } = e.features[0].properties;
-    // const { title } = e.features[0].properties;
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
-    // createPopup(coordinates, title, description);
 });
