@@ -1,4 +1,4 @@
-import places from "./places.js";
+import places from "./places";
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
 const map = new mapboxgl.Map({
@@ -42,8 +42,8 @@ function createEventListener(element, coordinates, title) {
         fly(coordinates, title);
     }, false);
 }
-function createPlacesEventListeners(places) {
-    const { features } = places;
+function createPlacesEventListeners(placesGeoJSON) {
+    const { features } = placesGeoJSON;
     features.forEach((feature) => {
         var _a, _b;
         if (feature.geometry.type === "Point") {
@@ -75,15 +75,17 @@ map.on("mouseleave", "places", () => {
     map.getCanvas().style.cursor = "";
 });
 map.on("click", "places", (event) => {
-    const features = event.features;
-    const geometry = features[0].geometry;
-    if (geometry.type === "Point") {
-        const coordinates = geometry.coordinates.slice();
-        const { description } = features[0].properties;
-        const { title } = features[0].properties;
-        while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+    const { features } = event;
+    if (features) {
+        const { geometry } = features[0];
+        if (geometry.type === "Point") {
+            const coordinates = geometry.coordinates.slice();
+            const { description } = features[0].properties;
+            const { title } = features[0].properties;
+            while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            createPopup(coordinates, title, description);
         }
-        createPopup(coordinates, title, description);
     }
 });

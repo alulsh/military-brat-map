@@ -1,3 +1,4 @@
+// prettier-ignore
 import { FeatureCollection } from "geojson";
 
 const places = {
@@ -73,8 +74,7 @@ const places = {
       properties: {
         title: "Monterey, CA",
         icon: "school",
-        description:
-          "October 1998 - July 1999<br>Defense Language Institute",
+        description: "October 1998 - July 1999<br>Defense Language Institute",
       },
     },
     {
@@ -123,8 +123,7 @@ const places = {
       properties: {
         title: "Williamsburg, VA",
         icon: "college",
-        description:
-          "August 2008 - May 2012<br>The College of William & Mary",
+        description: "August 2008 - May 2012<br>The College of William & Mary",
       },
     },
     {
@@ -152,6 +151,6 @@ const places = {
       },
     },
   ],
-}
+};
 
 export default places as FeatureCollection;

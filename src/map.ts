@@ -1,6 +1,6 @@
-// eslint-disable-next-line import/extensions
+// prettier-ignore
 import { FeatureCollection } from "geojson";
-import places from "./places.js";
+import places from "./places";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
@@ -16,7 +16,11 @@ map.addControl(new mapboxgl.NavigationControl());
 
 const popup = new mapboxgl.Popup();
 
-function createPopup(coordinates: mapboxgl.LngLatLike, title: string, description: string) {
+function createPopup(
+  coordinates: mapboxgl.LngLatLike,
+  title: string,
+  description: string
+) {
   popup
     .setLngLat(coordinates)
     .setHTML(`<div class="markerTitle">${title}</div>${description}`)
@@ -33,7 +37,9 @@ function getFeatureByTitle(placesGeoJSON: FeatureCollection, title: string) {
 
 function getLinkElementByTitle(title: string) {
   const links = Array.from(document.getElementsByClassName("place"));
-  const linkByTitle = links.filter((link) => (<HTMLElement>link).innerText === title);
+  const linkByTitle = links.filter(
+    (link) => (<HTMLElement>link).innerText === title
+  );
   return linkByTitle[0];
 }
 
@@ -54,7 +60,11 @@ function fly(coordinates: mapboxgl.LngLatLike, title: string) {
   }
 }
 
-function createEventListener(element: HTMLElement, coordinates: mapboxgl.LngLatLike, title: string) {
+function createEventListener(
+  element: HTMLElement,
+  coordinates: mapboxgl.LngLatLike,
+  title: string
+) {
   element.addEventListener(
     "click",
     () => {
@@ -64,8 +74,8 @@ function createEventListener(element: HTMLElement, coordinates: mapboxgl.LngLatL
   );
 }
 
-function createPlacesEventListeners(places: FeatureCollection) {
-  const { features } = places;
+function createPlacesEventListeners(placesGeoJSON: FeatureCollection) {
+  const { features } = placesGeoJSON;
 
   features.forEach((feature) => {
     if (feature.geometry.type === "Point") {
@@ -93,7 +103,7 @@ map.on("load", () => {
       "icon-image": "{icon}-15",
       "icon-allow-overlap": true,
     },
-  }
+  };
   map.addLayer(layer);
 });
 
@@ -106,20 +116,24 @@ map.on("mouseleave", "places", () => {
 });
 
 map.on("click", "places", (event) => {
-  const features = event.features!;
-  const geometry = features[0].geometry;
-  if (geometry.type === "Point") {
+  const { features } = event;
+  if (features) {
+    const { geometry } = features[0];
+    if (geometry.type === "Point") {
+      type CustomProperties = GeoJSON.GeoJsonProperties & {
+        description: string;
+        title: string;
+      };
 
-    type customProperties = GeoJSON.GeoJsonProperties & { description: string, title: string }
+      const coordinates = geometry.coordinates.slice();
+      const { description } = <CustomProperties>features[0].properties;
+      const { title } = <CustomProperties>features[0].properties;
 
-    const coordinates = geometry.coordinates.slice();
-    const { description } = <customProperties>features[0].properties;
-    const { title } = <customProperties>features[0].properties;
+      while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
 
-    while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+      createPopup(<mapboxgl.LngLatLike>coordinates, title, description);
     }
-
-    createPopup(<mapboxgl.LngLatLike>coordinates, title, description);
   }
 });
