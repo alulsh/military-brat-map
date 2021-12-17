@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/extensions
 import places from "./places.js";
-// import * as mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
 const map = new mapboxgl.Map({
@@ -59,11 +58,22 @@ map.on("mouseleave", "places", () => {
     map.getCanvas().style.cursor = "";
 });
 map.on("click", "places", (e) => {
-    const coordinates = e.features[0].geometry.coordinates.slice();
-    const { description } = e.features[0].properties;
-    const { title } = e.features[0].properties;
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // const geometry = staticBreadcrumbs.features[0].geometry;
+    const geometry = e.features[0].geometry;
+    if (geometry.type === "Point") {
+        const coordinates = geometry.coordinates.slice();
+        const { description } = e.features[0].properties;
+        const { title } = e.features[0].properties;
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        createPopup(coordinates, title, description);
     }
-    createPopup(coordinates, title, description);
+    // const coordinates = geometry.coordinates.slice();
+    // const { description } = e.features[0].properties;
+    // const { title } = e.features[0].properties;
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
+    // createPopup(coordinates, title, description);
 });
