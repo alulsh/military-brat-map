@@ -3,7 +3,7 @@ import { FeatureCollection } from "geojson";
 import places from "./places.js";
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImY0NDBjYTQ1NjU4OGJmMDFiMWQ1Y2RmYjRlMGI1ZjIzIn0.pngboKEPsfuC4j54XDT3VA";
+  "pk.eyJ1IjoiYWx1bHNoIiwiYSI6ImNsYWZxaWdubTBkNmkzb3A5Mjl6eTFicHMifQ.gPpYDcA5dnD1qFTBeE1hrw";
 
 const map = new mapboxgl.Map({
   container: "map",
